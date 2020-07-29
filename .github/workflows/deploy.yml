@@ -21,3 +21,4 @@ jobs:
         working-directory: ./frontend
       - run: ls
         working-directory: ./frontend/dist
+        
