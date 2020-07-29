@@ -9,7 +9,7 @@ jobs:
     name: Deploy Site
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@main
       - uses: actions/setup-node@v1
         with:
           node-version: '12'
@@ -20,5 +20,11 @@ jobs:
       - run: ng build
         working-directory: ./frontend
       - run: ls
-        working-directory: ./frontend/dist
-        
+        working-directory: ./frontend/dist/magic-mirror
+      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          version: '290.0.1'
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+      - run: gcloud info
