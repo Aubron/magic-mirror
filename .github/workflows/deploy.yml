@@ -19,8 +19,6 @@ jobs:
         working-directory: ./frontend
       - run: ng build
         working-directory: ./frontend
-      - run: ls
-        working-directory: ./frontend/dist/magic-mirror
       - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
           version: '290.0.1'
@@ -28,3 +26,4 @@ jobs:
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           export_default_credentials: true
       - run: gsutil cp -r ./frontend/dist/magic-mirror/* gs://${{ secrets.GCP_BUCKET }}
+      - run: gcloud compute url-maps invalidate-cdn-cache {{ secrets.GCP_CDN_ORIGIN }} --path "/*"
