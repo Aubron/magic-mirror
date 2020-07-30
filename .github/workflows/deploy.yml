@@ -37,4 +37,4 @@ jobs:
           node-version: '12'
       - run: npm install balena-cli -g --production --unsafe-perm
       - run: balena login --token ${{ secrets.BALENA_API_TOKEN }}
-      - run: balena deploy magic-mirror --source ./embedded --logs
+      - run: balena push magic-mirror --source ./embedded --logs
